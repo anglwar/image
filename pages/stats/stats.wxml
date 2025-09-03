@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="card">
+    <view class="row space-between">
+      <text class="title">支出统计</text>
+      <picker mode="selector" range="{{granularityOptions}}" value="{{granularityIndex}}" bindchange="onGranularityChange">
+        <view class="muted">{{granularityOptions[granularityIndex]}}</view>
+      </picker>
+    </view>
+    <view style="height: 12rpx"></view>
+    <picker mode="date" fields="month" value="{{selectedMonth}}" bindchange="onMonthChange" wx:if="{{granularity==='month'}}">
+      <view>月份：{{selectedMonth}}</view>
+    </picker>
+    <picker mode="date" fields="year" value="{{selectedYear}}" bindchange="onYearChange" wx:if="{{granularity!=='month'}}">
+      <view>年份：{{selectedYear}}</view>
+    </picker>
+    <view style="height: 12rpx"></view>
+    <view class="row space-between">
+      <text class="muted">总支出</text>
+      <text class="title">{{total.toFixed(2)}} 元</text>
+    </view>
+  </view>
+
+  <view style="height: 24rpx"></view>
+
+  <view class="card">
+    <text class="title">趋势图</text>
+    <canvas type="2d" canvas-id="trend" style="width: 100%; height: 360rpx;"/>
+  </view>
+
+  <view style="height: 24rpx"></view>
+
+  <view class="card">
+    <text class="title">分布图</text>
+    <canvas type="2d" canvas-id="dist" style="width: 100%; height: 360rpx;"/>
+  </view>
+</view>
+

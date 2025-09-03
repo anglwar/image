@@ -1,0 +1,12 @@
+.recording-indicator {
+  position: fixed;
+  left: 50%;
+  bottom: 260rpx;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 16rpx 24rpx;
+  border-radius: 12rpx;
+  z-index: 1300;
+}
+
