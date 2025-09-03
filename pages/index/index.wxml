@@ -1,0 +1,69 @@
+<view class="container">
+  <view class="card row space-between">
+    <text class="muted">本月支出</text>
+    <text class="title">{{monthTotal.toFixed(2)}} 元</text>
+  </view>
+
+  <view style="height: 24rpx"></view>
+
+  <view class="row gap-24">
+    <button class="btn-outline" bindtouchstart="onVoiceTouchStart" bindtouchend="onVoiceTouchEnd" bindlongpress="onVoiceLongPress" loading="{{isRecording}}">
+      🎙️ 长按语音输入
+    </button>
+    <button class="btn-primary" bindtap="openManualPopup">✍️ 手动输入</button>
+  </view>
+
+  <view style="height: 32rpx"></view>
+
+  <view class="card">
+    <view class="row space-between">
+      <text class="title">今日记录</text>
+      <text class="muted">{{todayDate}}</text>
+    </view>
+    <view style="height: 16rpx"></view>
+    <block wx:if="{{todayList.length === 0}}">
+      <text class="muted">暂无记录</text>
+    </block>
+    <block wx:for="{{todayList}}" wx:key="id">
+      <view class="row space-between" style="padding: 16rpx 0; border-bottom: 1px solid #f0f0f0;">
+        <view class="row" style="gap: 16rpx;">
+          <text>{{item.category}}</text>
+          <text class="muted">{{item.title}}</text>
+        </view>
+        <text style="color:#d93025;">-{{Number(item.amount).toFixed(2)}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{showManual}}" class="card" style="position: fixed; left: 24rpx; right: 24rpx; bottom: 160rpx; z-index: 1200;">
+    <view class="row space-between">
+      <text class="title">新增支出</text>
+      <text bindtap="closeManualPopup">✖</text>
+    </view>
+    <view style="height: 16rpx"></view>
+    <view>
+      <view style="margin-bottom: 16rpx;">
+        <text class="muted">金额（元）</text>
+        <input placeholder="0.00" type="digit" value="{{form.amount}}" bindinput="onAmountInput" />
+      </view>
+      <view style="margin-bottom: 16rpx;">
+        <text class="muted">标题</text>
+        <input placeholder="如：午餐" value="{{form.title}}" bindinput="onTitleInput" />
+      </view>
+      <view style="margin-bottom: 16rpx;">
+        <text class="muted">时间</text>
+        <picker mode="date" value="{{form.date}}" bindchange="onDateChange">
+          <view>{{form.date}}</view>
+        </picker>
+      </view>
+      <view style="margin-bottom: 16rpx;">
+        <text class="muted">分类</text>
+        <picker range="{{categories}}" value="{{form.categoryIndex}}" bindchange="onCategoryChange">
+          <view>{{categories[form.categoryIndex]}}</view>
+        </picker>
+      </view>
+      <button class="btn-primary" bindtap="submitManual">保存</button>
+    </view>
+  </view>
+</view>
+
